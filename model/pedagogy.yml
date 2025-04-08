@@ -29,7 +29,6 @@
 
 
 feedback_rules:
-
   - name: "Maestria em questões difíceis em tópico"
   condition:
     type: "and"

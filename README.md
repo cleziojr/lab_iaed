@@ -1,3 +1,5 @@
+Alunos: Clézio Rogério; Antônio Henrique; Pedro Henrique Clementino 
+
 # ITS-IT: Template para Implementação de um Intelligent Tutor System para o Concursos de Nível Superior na área de Tecnologia da Informação
 
 **Bem-vindo(a)!** Este repositório é um trabalho em andamento (work in progress) utilizado para propósitos ilustrativos de como um ITS pode ser implementado para concursos públicos que avaliem o conhecimento na área de Tecnologia da Informação. 

@@ -1,36 +1,39 @@
-feedback_types:
-
+ feedback_types:
   - name: "autonomy"
-    description: "Encourages learners to take control of their learning by exploring topics independently or setting their own goals."
-    message: "You're making steady progress in {item}. Consider exploring it further on your own to deepen your understanding."
+    description: "Incentiva os alunos a assumirem o controle de seu aprendizado, explorando tópicos de forma independente ou estabelecendo suas próprias metas."
+    message: "Você está fazendo um bom progresso em {item}. Considere explorar mais a fundo para aprofundar seu entendimento."
 
   - name: "competence"
-    description: "Affirms the learner's ability to master the material, highlighting progress and strengths."
-    message: "You're showing great competence in {item}! Keep up the excellent work."
+    description: "Afirma a capacidade do aluno de dominar o material, destacando o progresso e os pontos fortes."
+    message: "Você está mostrando grande competência em {item}! Continue o excelente trabalho."
 
-  - name: "relatedness"
-    description: "Makes the learner feel connected and supported, normalizing struggles and suggesting collaboration."
-    message: "Many students find {item} challenging. You're not alone—let's tackle this together."
+  - name: "reflection"
+    description: "Incentiva os alunos a refletirem sobre o que aprenderam e como podem aplicar o conhecimento de forma prática."
+    message: "Você está indo muito bem! Reserve um tempo para refletir sobre o que aprendeu em {item}. Como você pode aplicar esse conhecimento na prática?"
 
   - name: "urgent"
-    description: "Indicates a need for immediate attention to foundational concepts due to struggles with easy questions."
-    message: "Urgent: You struggled with easy questions in {item}. Let's review the basics to build a stronger foundation."
+    description: "Indica a necessidade de atenção imediata aos conceitos fundamentais devido a dificuldades com questões fáceis."
+    message: "Urgente: Você teve dificuldades com questões fáceis em {item}. Vamos revisar o básico para construir uma base mais sólida."
+
+  - name: "motivation"
+    description: "Motiva os alunos a continuarem estudando, mesmo com as dificuldades apresentadas"
+    message: "Você errou a grande maioria das questões, mas não se sinta mal, é normal os aulos terem dificuldade em {item}. A perfeição vem com a prática"
 
   - name: "review"
-    description: "Suggests revisiting the topic to strengthen understanding, especially for more challenging concepts."
-    message: "Consider reviewing {item}, especially the harder concepts, to improve your mastery."
+    description: "Sugere revisar o tópico para fortalecer o entendimento, especialmente para conceitos mais desafiadores."
+    message: "Considere revisar {item}, especialmente os conceitos mais difíceis, para melhorar seu domínio."
 
 
 feedback_rules:
 
-  - name: "Relatedness for low topic performance"
+  - name: "Reflection for high area performance"
     condition:
-      type: "less_than"
-      left: "performance.topics[topic].percent_correct"
-      right: 50.0
+      type: "greater_than"
+      left: "performance.areas[area].percent_correct"
+      right: 75.0
     action:
-      feedback_relatedness[topic]: 1
-    description: "Flags relatedness feedback if topic performance is below 50%"
+      feedback_reflection[area]: 1
+    description: "Flags reflection feedback if area performance is exceeds 75%"
 
   - name: "Competence for high topic performance"
     condition:
@@ -54,15 +57,6 @@ feedback_rules:
     action:
       feedback_autonomy[topic]: 1
     description: "Flags autonomy feedback if topic performance is between 50% and 80%"
-
-  - name: "Relatedness for low area performance"
-    condition:
-      type: "less_than"
-      left: "performance.areas[area].percent_correct"
-      right: 50.0
-    action:
-      feedback_relatedness[area]: 1
-    description: "Flags relatedness feedback if area performance is below 50%"
 
   - name: "Competence for high area performance"
     condition:
@@ -100,6 +94,20 @@ feedback_rules:
     action:
       feedback_urgent[topic]: 1
     description: "Flags urgent focus if easy questions exist and topic performance is below 50%"
+
+    - name: "Motivation due to easy question failure"
+    condition:
+      type: "and"
+      conditions:
+        - type: "greater_than"
+          left: "performance.topics[topic].difficulty_breakdown.easy"
+          right: 0
+        - type: "less_than"
+          left: "performance.topics[topic].percent_correct"
+          right: 30.0
+    action:
+      feedback_motivation[topic]: 1
+    description: "Motiva os alunos a continuarem estudando, mesmo com as dificuldades apresentadas"
 
   - name: "Review topic due to hard question weakness"
     condition:

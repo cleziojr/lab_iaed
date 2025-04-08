@@ -1,68 +1,68 @@
 learner:
-  description: "Schema for a single learner’s profile and performance data"
+  description: "Estutura de tutoria indivualizada com o objetivo de fornecer alto desempenho" 
   type: dict
   properties:
     id:
       type: string
-      description: "Unique identifier for the learner (e.g., UUID or incremental ID)"
-      example: "learner_001"
+      description: "Identificador único para o aluno (ID auto-incremental)"
+      example: "aluno_001"
     answers:
       type: dict
-      description: "Learner's answers to questions (key: question ID, value: A/B/C/D/E)"
+      description: "Respostas do aluno às questões (chave: ID da questão, value: A/B/C/D/E)"
       example: { "1": "A", "2": "B", "3": "C" }
     performance:
       type: dict
-      description: "Performance metrics per topic and area"
+      description: "Métricas de performance por tópico e por área"
       properties:
         topics:
           type: dict
-          description: "Metrics for each leaf topic from domain.yml"
+          description: "Métricas para cada tópico do arquivo domain.yml"
           value:
             type: dict
             properties:
               total_questions:
                 type: int
-                description: "Number of questions answered for this topic"
+                description: "Número de questões respondidas no total no referido tópico"
                 min: 0
               percent_correct_easy_questions:
                 type: float
-                description: "Percentage of correct answers for easy questions in this topic"
+                description: "Percentual de respostas corretas para questões consideradas de nível fácil para o referido tópico"
                 range: [0.0, 100.0]
               percent_correct_medium_questions:
                 type: float
-                description: "Percentage of correct answers for medium questions in this topic"
+                description: "Percentual de respostas corretas para questões consideradas de nível médio para o referido tópico"
                 range: [0.0, 100.0]
               percent_correct_hard_questions:
                 type: float
-                description: "Percentage of correct answers for hard questions in this topic"
+                description: "Percentual de respostas corretas para questões consideradas de nível difícil para o referido tópico"
                 range: [0.0, 100.0]
               points:
                 type: int
-                description: "Total points earned for this topic"
+                description: "Total de pontos adquiridos no referido tópico"
                 min: 0
         areas:
           type: dict
-          description: "Metrics for each top-level area (e.g., Biologia, Química, Física)"
+          description: "Métricas para cada área em sua hierarquia mais alta (p. e. Estruturas de Dados, Banco de Dados, Sistemas Operacionais...etc)"
           value:
             type: dict
             properties:
               total_questions:
                 type: int
-                description: "Number of questions answered in this area"
+                description: "Número de questões respondidas nessa área"
                 min: 0
               percent_correct_easy_questions:
                 type: float
-                description: "Percentage of correct answers for easy questions in this area"
+                description: "Percentual de respostas corretas para questões consideradas de nível fácil para a referida área"
                 range: [0.0, 100.0]
               percent_correct_medium_questions:
                 type: float
-                description: "Percentage of correct answers for medium questions in this area"
+                description: "Percentual de respostas corretas para questões consideradas de nível médio para a referida área"
                 range: [0.0, 100.0]
               percent_correct_hard_questions:
                 type: float
-                description: "Percentage of correct answers for hard questions in this area"
+                description: "Percentual de respostas corretas para questões consideradas de nível difícil para a referida área"
                 range: [0.0, 100.0]
               points:
                 type: int
-                description: "Total points earned in this area"
+                description: "Total de pontos conquistados nessa área"
                 min: 0

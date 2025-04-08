@@ -17,34 +17,53 @@
 
   - name: "motivation"
     description: "Motiva os alunos a continuarem estudando, mesmo com as dificuldades apresentadas"
-    message: "Você errou a grande maioria das questões, mas não se sinta mal, é normal os aulos terem dificuldade em {item}. A perfeição vem com a prática"
+    message: "Você errou a grande maioria das questões, mas não se sinta mal, é normal os aulos terem dificuldade em {item}. Continue estudando!"
 
   - name: "review"
     description: "Sugere revisar o tópico para fortalecer o entendimento, especialmente para conceitos mais desafiadores."
     message: "Considere revisar {item}, especialmente os conceitos mais difíceis, para melhorar seu domínio."
+  
+  - name: "mastery"
+    description: "Destaca o ótimo desempenho de um aluno em questões difíceis"
+    message: "Parabéns! Seu desempenho com questões difícies em {item} é incrível. A aprovação está cada vez mais próxima."
 
 
 feedback_rules:
 
-  - name: "Reflection for high area performance"
+  - name: "Maestria em questões difíceis em tópico"
+  condition:
+    type: "and"
+    conditions:
+      - type: "greater_than_or_equal"
+        left: "performance.topics[topic].difficulty_breakdown.hard"
+        right: 2
+      - type: "greater_than"
+        left: "performance.topics[topic].percent_correct"
+        right: 90.0
+  action:
+    feedback_mastery[topic]: 1
+  description: "Destaca alto desempenho quando o aluno tem mais de 90% de acertos em questões difíceis de um tópico com pelo menos 2 questões difíceis respondidas"
+
+
+  - name: "Reflexão para desempenho alto em área"
     condition:
       type: "greater_than"
       left: "performance.areas[area].percent_correct"
-      right: 75.0
+      right: 80.0
     action:
       feedback_reflection[area]: 1
-    description: "Flags reflection feedback if area performance is exceeds 75%"
+    description: "Exibe o feedback de reflexão se o desempenho na área exceder 80%"
 
-  - name: "Competence for high topic performance"
+  - name: "Competência para desempenho alto em tópico"
     condition:
       type: "greater_than"
       left: "performance.topics[topic].percent_correct"
       right: 80.0
     action:
       feedback_competence[topic]: 1
-    description: "Flags competence feedback if topic performance exceeds 80%"
+    description: "Exibe o feedback de competência se o desempenho no tópico exceder 80%"
 
-  - name: "Autonomy for moderate topic performance"
+  - name: "Autonomia para desempenho moderado em tópico"
     condition:
       type: "and"
       conditions:
@@ -56,18 +75,18 @@ feedback_rules:
           right: 80.0
     action:
       feedback_autonomy[topic]: 1
-    description: "Flags autonomy feedback if topic performance is between 50% and 80%"
+    description: "Exibe o feedback de autonomia se o desempenho no tópico estiver entre 50% e 80%"
 
-  - name: "Competence for high area performance"
+  - name: "Competência para desempenho alto em área"
     condition:
       type: "greater_than"
       left: "performance.areas[area].percent_correct"
       right: 80.0
     action:
       feedback_competence[area]: 1
-    description: "Flags competence feedback if area performance exceeds 80%"
-
-  - name: "Autonomy for moderate area performance"
+    description: "Exibe o feedback de competência se o desempenho na área exceder 80%"
+  
+  - name: "Autonomia para desempenho moderado em área"
     condition:
       type: "and"
       conditions:
@@ -79,9 +98,9 @@ feedback_rules:
           right: 80.0
     action:
       feedback_autonomy[area]: 1
-    description: "Flags autonomy feedback if area performance is between 50% and 80%"
+    description: "Exibe o feedback de autonomia se o desempenho na área estiver entre 50% e 80%"
 
-  - name: "Urgent topic focus due to easy question failure"
+  - name: "Foco urgente no tópico devido a erros em questões fáceis"
     condition:
       type: "and"
       conditions:
@@ -93,9 +112,9 @@ feedback_rules:
           right: 50.0
     action:
       feedback_urgent[topic]: 1
-    description: "Flags urgent focus if easy questions exist and topic performance is below 50%"
+    description: "Alerta necessidade de foco urgente se houver questões fáceis e o desempenho no tópico for inferior a 50%"
 
-    - name: "Motivation due to easy question failure"
+  - name: "Motivação devido a erros em questões fáceis"
     condition:
       type: "and"
       conditions:
@@ -107,9 +126,9 @@ feedback_rules:
           right: 30.0
     action:
       feedback_motivation[topic]: 1
-    description: "Motiva os alunos a continuarem estudando, mesmo com as dificuldades apresentadas"
+    description: "Motivação para que o aluno não desista de estudar o tópico, mesmo com menos que 30% de acertos em questões fáceis"
 
-  - name: "Review topic due to hard question weakness"
+  - name: "Revisar tópico devido à dificuldade com questões difíceis"
     condition:
       type: "and"
       conditions:
@@ -121,4 +140,4 @@ feedback_rules:
           right: 70.0
     action:
       feedback_review[topic]: 1
-    description: "Flags review if hard questions exist and topic performance is below 70%"
+    description: "Marca revisão se houver questões difíceis e o desempenho no tópico for inferior a 70%"

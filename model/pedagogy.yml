@@ -31,145 +31,93 @@
     description: "Destaca o ótimo desempenho de um aluno em questões difíceis"
     message: "Parabéns! Seu desempenho com questões difícies em {item} é incrível. A aprovação está cada vez mais próxima."
 
+    - name: "agility"
+    description: "Reconhece quando o aluno resolve questões difíceis com rapidez acima da média"
+    message: "Ótimo trabalho! Você resolveu as questões difíceis de {item} com agilidade impressionante. Continue assim para ganhar ainda mais confiança e ritmo."
+
+    - name: "slow"
+    description: "Aponta que o tempo de resolução foi maior do que o esperado para questões fáceis"
+    message: "Atenção! Em {item}, você levou mais tempo que o ideal para responder. Que tal revisar o conteúdo ou praticar mais para ganhar velocidade?"
+
+
+
 
 feedback_rules:
-   - name: "Relatedness para desempenho baixo em questões fáceis na área"
-    condition:
-      type: "and"
-      conditions:
-        - type: "greater_than_or_equal"
-          left: "performance.areas[area].total_questions"
-          right: 2 
-        - type: "less_than"
-          left: "performance.areas[area].percent_correct_easy_questions"
-          right: 60.0
+  - name: "Relatedness para desempenho baixo em questões fáceis no tópico"
+    condition: "Se o número de questões fáceis no tópico for maior ou igual a 2 e a taxa de acertos de questões fáceis for menor que 60%"
     action:
       feedback_relatedness[topic]: 1
-    description: "Exibe o feedback de relatedness se o desempenho em questões fáceis na área for inferior a 60%"
+    description: "Exibe o feedback de relatedness se o desempenho em questões fáceis no tópico for inferior a 60%"
 
   - name: "Maestria em questões difíceis em tópico"
-  condition:
-    type: "and"
-    conditions:
-      - type: "greater_than_or_equal"
-        left: "performance.topics[topic].difficulty_breakdown.hard"
-        right: 2
-      - type: "greater_than"
-        left: "performance.topics[topic].percent_correct"
-        right: 90.0
-  action:
-    feedback_mastery[topic]: 1
-  description: "Destaca alto desempenho quando o aluno tem mais de 90% de acertos em questões difíceis de um tópico com pelo menos 2 questões difíceis respondidas"
-
+    condition: "Se o número de questões difíceis for maior ou igual a 2 e a taxa de questões corretas for maior que 90%"
+    action:
+      feedback_mastery[topic]: 1
+    description: "Destaca alto desempenho quando o aluno tem mais de 90% de acertos em questões difíceis de um tópico com pelo menos 2 questões difíceis respondidas"
 
   - name: "Reflexão para desempenho alto em área"
-    condition:
-      type: "greater_than"
-      left: "performance.areas[area].percent_correct"
-      right: 80.0
+    condition: "Se a taxa de acertos na área for maior que 80%"
     action:
       feedback_reflection[area]: 1
     description: "Exibe o feedback de reflexão se o desempenho na área exceder 80%"
 
   - name: "Relatedness para desempenho baixo em questões fáceis no tópico"
-    condition:
-      type: "and"
-      conditions:
-      - type: "greater_than_or_equal"
-        left: "performance.topics[topic].total_questions"
-        right: 2
-      - type: "less_than"
-        left: "performance.topics[topic].percent_correct_easy_questions"
-        right: 60.0
+    condition: "Se o número de questões fáceis no tópico é maior ou igual a 2 e a taxa de acertos em questões fáceis for menor que 60%"
     action:
       feedback_relatedness[area]: 1
     description: "Exibe o feedback de relatedness se o desempenho em questões fáceis no tópico for inferior a 60%"
  
-
   - name: "Competência para desempenho alto em tópico"
-    condition:
-      type: "greater_than"
-      left: "performance.topics[topic].percent_correct"
-      right: 80.0
+    condition: "Se a taxa de acertos no tópico for maior que 80%"
     action:
       feedback_competence[topic]: 1
     description: "Exibe o feedback de competência se o desempenho no tópico exceder 80%"
 
   - name: "Autonomia para desempenho moderado em tópico"
-    condition:
-      type: "and"
-      conditions:
-        - type: "greater_than_or_equal"
-          left: "performance.topics[topic].percent_correct"
-          right: 50.0
-        - type: "less_than_or_equal"
-          left: "performance.topics[topic].percent_correct"
-          right: 80.0
+    condition: "Se a taxa de acertos no tópico estiver entre 50% e 80%"
     action:
       feedback_autonomy[topic]: 1
     description: "Exibe o feedback de autonomia se o desempenho no tópico estiver entre 50% e 80%"
 
   - name: "Competência para desempenho alto em área"
-    condition:
-      type: "greater_than"
-      left: "performance.areas[area].percent_correct"
-      right: 80.0
+    condition: "Se o aluno acertar mais de 80% das questões em uma determinada área."
     action:
       feedback_competence[area]: 1
     description: "Exibe o feedback de competência se o desempenho na área exceder 80%"
-  
+
   - name: "Autonomia para desempenho moderado em área"
-    condition:
-      type: "and"
-      conditions:
-        - type: "greater_than_or_equal"
-          left: "performance.areas[area].percent_correct"
-          right: 50.0
-        - type: "less_than_or_equal"
-          left: "performance.areas[area].percent_correct"
-          right: 80.0
+    condition: "Se o aluno acertar entre 50% e 80% das questões em uma determinada área."
     action:
       feedback_autonomy[area]: 1
     description: "Exibe o feedback de autonomia se o desempenho na área estiver entre 50% e 80%"
 
   - name: "Foco urgente no tópico devido a erros em questões fáceis"
-    condition:
-      type: "and"
-      conditions:
-        - type: "greater_than"
-          left: "performance.topics[topic].difficulty_breakdown.easy"
-          right: 0
-        - type: "less_than"
-          left: "performance.topics[topic].percent_correct"
-          right: 50.0
+    condition: "Se houver pelo menos uma questão fácil na área e o aluno tiver acertado menos de 50% das questões fáceis desse área."
     action:
       feedback_urgent[topic]: 1
     description: "Alerta necessidade de foco urgente se houver questões fáceis e o desempenho no tópico for inferior a 50%"
 
   - name: "Motivação devido a erros em questões fáceis"
-    condition:
-      type: "and"
-      conditions:
-        - type: "greater_than"
-          left: "performance.topics[topic].difficulty_breakdown.easy"
-          right: 0
-        - type: "less_than"
-          left: "performance.topics[topic].percent_correct"
-          right: 30.0
+    condition: "Se houver pelo menos uma questão fácil no tópico e o aluno tiver acertado menos de 30% das questões desse tópico."
     action:
       feedback_motivation[topic]: 1
     description: "Motivação para que o aluno não desista de estudar o tópico, mesmo com menos que 30% de acertos em questões fáceis"
 
   - name: "Revisar tópico devido à dificuldade com questões difíceis"
-    condition:
-      type: "and"
-      conditions:
-        - type: "greater_than"
-          left: "performance.topics[topic].difficulty_breakdown.hard"
-          right: 0
-        - type: "less_than"
-          left: "performance.topics[topic].percent_correct"
-          right: 70.0
+    condition: "Se houver pelo menos 2 questão difícil no tópico e o aluno tiver acertado menos de 50% dessas questões desse tópico."
     action:
       feedback_review[topic]: 1
     description: "Marca revisão se houver questões difíceis e o desempenho no tópico for inferior a 70%"
+
+    - name: "Desempenho abaixo em questões fáceis devido à lentidão na resolução"
+    condition: "Se o aluno resolver a questão em um tempo maior que o esperado que o tempo médio esperado para questões fáceis (menor ou igual a 80 segundos)"
+    action:
+      feedback_slow[question]: 1
+    description: "Aponta que o aluno precisa melhorar a agilidade, pois demorou mais que o esperado para resolver as questões fáceis"
+
+    - name: "Desempenho ágil, resolução mais rápida que o normal para questões difíceis"
+    condition: "Se o aluno resolver a questão significativamente mais rápido que o tempo médio esperado para questões difíceis (menor que 180 segundos)"
+    action:
+      feedback_agility[question]: 1
+    description: "Destaca que o aluno teve agilidade ao resolver a questão mais rápido que a média esperada para questões difíceis"
+

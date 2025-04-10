@@ -1,5 +1,5 @@
 learner:
-  description: "Estutura de tutoria indivualizada com o objetivo de fornecer alto desempenho" 
+  description: "Estutura de tutoria individualizada com o objetivo de fornecer alto desempenho" 
   type: dict
   properties:
     id:
@@ -43,15 +43,15 @@ learner:
               solving_time_easy_questions:
                 type: int
                 description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível fácil para o referido tópico"
-                min: 0
+                range: [0, 80]
               solving_time_medium_questions:
                 type: int
                 description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível médio para o referido tópico"
-                min: 0
+                range: [80, 180]
               solving_time_hard_questions:
                 type: int
                 description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível difícil para o referido tópico"
-                min: 0
+                range: [180, 300]
         areas:
           type: dict
           description: "Métricas para cada área em sua hierarquia mais alta (p. e. Estruturas de Dados, Banco de Dados, Sistemas Operacionais...etc)"
@@ -81,12 +81,12 @@ learner:
               solving_time_easy_questions:
                 type: int
                 description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível fácil para a referida área"
-                min: 0
+                range: [0, 80]
               solving_time_medium_questions:
                 type: int
                 description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível médio para a referida área"
-                min: 0
+                range: [80, 180]
               solving_time_hard_questions:
                 type: int
                 description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível difícil para a referida área"
-                min: 0
+                range: [180, 300]

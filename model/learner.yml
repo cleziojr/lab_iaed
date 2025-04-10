@@ -42,15 +42,15 @@ learner:
                 min: 0
               solving_time_easy_questions:
                 type: int
-                description: "Tempo, em minutos, gasto na resolução de questões consideradas de nível fácil para o referido tópico"
+                description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível fácil para o referido tópico"
                 min: 0
               solving_time_medium_questions:
                 type: int
-                description: "Tempo, em minutos, gasto na resolução de questões consideradas de nível médio para o referido tópico"
+                description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível médio para o referido tópico"
                 min: 0
               solving_time_hard_questions:
                 type: int
-                description: "Tempo, em minutos, gasto na resolução de questões consideradas de nível difícil para o referido tópico"
+                description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível difícil para o referido tópico"
                 min: 0
         areas:
           type: dict
@@ -80,13 +80,13 @@ learner:
                 min: 0
               solving_time_easy_questions:
                 type: int
-                description: "Tempo, em minutos, gasto na resolução de questões consideradas de nível fácil para a referida área"
+                description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível fácil para a referida área"
                 min: 0
               solving_time_medium_questions:
                 type: int
-                description: "Tempo, em minutos, gasto na resolução de questões consideradas de nível médio para a referida área"
+                description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível médio para a referida área"
                 min: 0
               solving_time_hard_questions:
                 type: int
-                description: "Tempo, em minutos, gasto na resolução de questões consideradas de nível difícil para a referida área"
+                description: "Tempo, em segundos, gasto na resolução de questões consideradas de nível difícil para a referida área"
                 min: 0

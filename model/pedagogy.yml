@@ -7,6 +7,10 @@
     description: "Afirma a capacidade do aluno de dominar o material, destacando o progresso e os pontos fortes."
     message: "Você está mostrando grande competência em {item}! Continue o excelente trabalho."
 
+  - name: "relatedness"
+    description: "Faz com que o aluno se sinta conectado e apoiado, normalizando as dificuldades e sugerindo colaboração."
+    message: "Muitos estudantes acham {item} desafiador. Você não está sozinho e ano que vem você vai ser melhor."
+
   - name: "reflection"
     description: "Incentiva os alunos a refletirem sobre o que aprenderam e como podem aplicar o conhecimento de forma prática."
     message: "Você está indo muito bem! Reserve um tempo para refletir sobre o que aprendeu em {item}. Como você pode aplicar esse conhecimento na prática?"
@@ -29,6 +33,20 @@
 
 
 feedback_rules:
+   - name: "Relatedness para desempenho baixo em questões fáceis na área"
+    condition:
+      type: "and"
+      conditions:
+        - type: "greater_than_or_equal"
+          left: "performance.areas[area].total_questions"
+          right: 2 
+        - type: "less_than"
+          left: "performance.areas[area].percent_correct_easy_questions"
+          right: 60.0
+    action:
+      feedback_relatedness[topic]: 1
+    description: "Exibe o feedback de relatedness se o desempenho em questões fáceis na área for inferior a 60%"
+
   - name: "Maestria em questões difíceis em tópico"
   condition:
     type: "and"
@@ -52,6 +70,21 @@ feedback_rules:
     action:
       feedback_reflection[area]: 1
     description: "Exibe o feedback de reflexão se o desempenho na área exceder 80%"
+
+  - name: "Relatedness para desempenho baixo em questões fáceis no tópico"
+    condition:
+      type: "and"
+      conditions:
+      - type: "greater_than_or_equal"
+        left: "performance.topics[topic].total_questions"
+        right: 2
+      - type: "less_than"
+        left: "performance.topics[topic].percent_correct_easy_questions"
+        right: 60.0
+    action:
+      feedback_relatedness[area]: 1
+    description: "Exibe o feedback de relatedness se o desempenho em questões fáceis no tópico for inferior a 60%"
+ 
 
   - name: "Competência para desempenho alto em tópico"
     condition:

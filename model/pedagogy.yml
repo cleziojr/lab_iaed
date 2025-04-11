@@ -5,7 +5,7 @@
 
   - name: "competence"
     description: "Afirma a capacidade do aluno de dominar o material, destacando o progresso e os pontos fortes."
-    message: "Você está mostrando grande competência em {item}, com um taxa de acertos de 80%! Continue o excelente trabalho."
+    message: "Você está mostrando grande competência em {item}, com uma taxa de acertos de 80%! Continue o excelente trabalho."
 
   - name: "relatedness"
     description: "Faz com que o aluno se sinta conectado e apoiado, normalizando as dificuldades e sugerindo colaboração."
@@ -29,7 +29,7 @@
   
   - name: "mastery"
     description: "Destaca o ótimo desempenho de um aluno em questões difíceis"
-    message: "Parabéns! Seu desempenho com questões difícies em {item} é incrível. Talvez seja o momento para focar em outras áreas."
+    message: "Parabéns! Seu desempenho com questões difíceis em {item} é incrível. Talvez seja o momento para focar em outros tópicos."
   
   - name: "perfection"
     description: "DEstaca o fato do aluno ter aceratado todas as questões da prova"
@@ -82,7 +82,7 @@ feedback_rules:
     action: feedback_autonomy[area]: 1
     description: "Exibe o feedback de autonomia se o desempenho na área estiver entre 50% e 80%"
 
-  - name: "Foco urgente no tópico devido a erros em questões fáceisno tópico"
+  - name: "Foco urgente no tópico devido a erros em questões fáceis no tópico"
     condition: "Se houver pelo menos uma questão fácil no tópico e o aluno tiver acertado menos de 50% das questões fáceis desse tópico."
     action: feedback_urgent[topic]: 1
     description: "Alerta necessidade de foco urgente se houver questões fáceis e o desempenho no tópico for inferior a 50%"
